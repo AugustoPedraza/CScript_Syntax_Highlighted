@@ -1,0 +1,105 @@
+{
+  "name":       "C script",
+  "scopeName":  "source.cscript",
+  "fileTypes":  ["unit"],
+  "repository": {
+    "general": {
+      "patterns": [
+        {
+          "include": "#file_block"
+        }
+      ]
+    },
+
+    "file_block": {
+      "name": "meta.init-file.cscript",
+      "begin": "<(unit)\\s+(name)\\s*=\\s*(\"[A-Za-z]+[a-zA-Z0-9_]*\")\\s+(xmlns:xsi)=(\"_\")\\s+(xsi:type)=\\s?(\"Unit\")>",
+      "beginCaptures": {
+          "1": { "name": "entity.name.tag.cscript" },
+          "2": { "name": "entity.other.attribute-name.cscript" },
+          "3": { "name": "string.cscript" },
+          "4": { "name": "entity.other.attribute-name.namespace.cscript"},
+          "5": { "name": "string.cscript" },
+          "6": { "name": "entity.other.attribute-name.namespace.cscript"},
+          "7": { "name": "string.cscript" }
+      },
+      "patterns": [
+        {
+          "include": "#class"
+        },
+        {
+          "name": "meta.exception-definition.cscript",
+          "match": "<(class)\\s+(name)\\s*=\\s*(\"E[A-Za-z]+[a-zA-Z0-9_]*\")\\s\\s*(inherits)\\s*=\\s*\"(Exception)\"\\s*(\/>)",
+          "captures": {
+              "1": { "name": "entity.name.tag.cscript" },
+              "2": { "name": "entity.other.attribute-name.cscript" },
+              "4": { "name": "entity.other.attribute-name.namespace.cscript"},
+              "5": { "name": "storage.type.cscript" }
+          }
+        }
+      ],
+
+      "end": "<\/(unit)>",
+      "endCaptures": {
+         "1": { "name": "entity.name.tag.cscript" }
+      }
+    },
+    "class": {
+      "name": "meta.class-definition.cscript",
+      "begin": "<(class)\\s+(name)\\s*=\\s*(\"[A-Za-z]+[a-zA-Z0-9_]*\")\\s*(\\s\\s*(inherits)\\s*=\\s?(\"[A-Za-z]+(\\.[a-zA-Z0-9]+)*\")\\s*)?>",
+      "beginCaptures": {
+          "1": { "name": "entity.name.tag.cscript" },
+          "2": { "name": "entity.other.attribute-name.cscript" },
+          "5": { "name": "entity.other.attribute-name.namespace.cscript"},
+          "6": { "name": "storage.type.cscript" }
+      },
+      "patterns": [
+        {
+          "include": "#method"
+        },
+        {
+          "name": "class.explicit-interface-implementation.cscript",
+          "match": "<(class)\\s+(name)\\s*=\\s*(\"E[A-Za-z]+[a-zA-Z0-9_]*\")\\s\\s*(inherits)\\s*=\\s*\"(Exception)\"\\s*(\/>)",
+          "captures": {
+              "1": { "name": "entity.name.tag.cscript" },
+              "2": { "name": "entity.other.attribute-name.cscript" },
+              "4": { "name": "entity.other.attribute-name.namespace.cscript"},
+              "5": { "name": "storage.type.cscript" }
+          }
+        }
+      ],
+      "end": "<\/(class)>",
+      "endCaptures": {
+         "1": { "name": "entity.name.tag.cscript" }
+      }
+    },
+
+    "method": {
+      "name": "meta.method-definition.cscript",
+      "begin": "<(method)\\s+(?<kind definition>(kind)\\s*=\\s*\"\\s*(list|lookup|update|insert|delete|dml)\")?\\s*(sign)\\s*=\"\\s*(?<return type>[a-zA-Z]{1}(\\.?_*[a-zA-Z0-9]+)*(\\[\\])?\\^?){1}\\s*(?<fuction name>[a-zA-Z]{1}_*[_a-zA-Z0-9]*){1}\\s*\\(\\s*(?<params>(?<first param type>[a-zA-Z]{1}(\\.?_*[a-zA-Z0-9]+)*(\\[\\])?\\^?){1}\\s+(?<first param name>[a-zA-Z]{1}[_a-zA-Z0-9]*){1}(\\s*,\\s*(?<param type>([a-zA-Z]{1}(\\.?_*[a-zA-Z0-9]+)*(\\[\\])?\\^?))\\s+(?<param name>[a-zA-Z]{1}[_a-zA-Z0-9]*))*\\s*)?\\)\\s*\"\\s*(?<mods definition>mods\\s*=\\s*\"\\s*(virtual|spawn|queue)\")?\\s*\\/?>",
+      "beginCaptures": {
+          "1": { "name": "entity.name.tag.cscript" },
+          "3": { "name": "entity.other.attribute-name.cscript" },
+          "4": { "name": "storage.type.cscript" },
+          "5": { "name": "entity.other.attribute-name.cscript" },
+          "6": { "name": "storage.type.cscript" },
+          "11": { "name": "storage.type.cscript" }
+
+      },
+      "end": "<\/(method)>",
+      "endCaptures": {
+         "1": { "name": "entity.name.tag.cscript" }
+      }
+    }
+
+  },
+
+
+  "patterns": [
+    {
+      "include": "#general"
+    }
+  ],
+
+  "uuid": "59de9fb4-446d-4b83-9d32-7312f12186dc"
+}
